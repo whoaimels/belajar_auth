@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background: linear-gradient(to right, #ccf2ff, #b3ecff, #99e5ff);
         }
 
         .login-container {
@@ -24,20 +25,41 @@
         h2 {
             text-align: center;
             margin-bottom: 20px;
+            color: #4338ca;
         }
 
         input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             border-radius: 6px;
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
 
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .alert {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border: 1px solid #fca5a5;
+            text-align: center;
+        }
+
         button {
-            background: #4f46e5;
+            background: #33ccff;
             color: white;
             border: none;
             padding: 12px;
@@ -48,7 +70,7 @@
         }
 
         button:hover {
-            background: #4338ca;
+            background: #00bfff;
         }
 
         a {
@@ -59,26 +81,21 @@
             color: #4f46e5;
             text-decoration: none;
         }
-
-        .error {
-            color: red;
-            font-size: 0.9em;
-            text-align: center;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
+
         <form action="{{ route('login') }}" method="POST">
             @csrf
-            <div>
+
+            <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required placeholder="Masukkan email">
+                <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="Masukkan email">
             </div>
 
-            <div>
+            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required placeholder="Masukkan password">
             </div>
@@ -87,22 +104,11 @@
                 <button type="submit">Login</button>
             </div>
         </form>
-
-        <div>
-            <a href="#">Forgot Password?</a>
-        </div>
-    
-        @if ($errors->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $errors)
-                        <li>{{ $errors }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
+
+    @if ($errors->has('email'))
+        <div class="alert" style="max-width: 400px; margin: 20px auto;">
+            {{ $errors->first('email') }}
+        </div>
+    @endif
 </body>
-</html>
-</body>
-</html>
