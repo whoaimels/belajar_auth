@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Registrasi</title>
     <style>
         body {
             background: #f3f4f6;
@@ -28,8 +28,8 @@
             color: #4338ca;
         }
 
-        input[type="email"],
-        input[type="password"] {
+        
+        input {
             width: 100%;
             padding: 12px;
             margin-bottom: 5px;
@@ -47,21 +47,15 @@
             color: #b91c1c;
             padding: 10px;
             border-radius: 6px;
+            margin-top: 10px;
             border: 1px solid #fca5a5;
             text-align: center;
-            max-width: 400px;
-            margin: 20px auto
+            max-width: 400px; 
+            margin: 20px auto;
         }
 
-        .success-message{
-            background-color: #d4edda; 
-            color: #155724; 
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #155724;
-            text-align: center;
-            max-width: 400px;
-            margin: 20px auto
+        ul{
+            list-style: none;
         }
 
         button {
@@ -78,14 +72,32 @@
         button:hover {
             background: #00bfff;
         }
+
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-link a {
+            color: #4338ca;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Registrasi</h2>
 
-        <form action="{{ route('login') }}" method="POST">
-            @csrf
+        <form action="{{ route('submit.registrasi') }}" method="POST">
+        @csrf
+            <div class="form-group">
+                <label for="name">Nama</label>
+                <input type="text" id="name" name="name" value="{{ old('name') }}" required placeholder="Masukkan nama">
+            </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
@@ -97,21 +109,27 @@
                 <input type="password" id="password" name="password" required placeholder="Masukkan password">
             </div>
 
+            <div class="form-group">
+                <label for="nomorhp">Nomor Handphone</label>
+                <input type="tel" id="nomorhp" name="nomorhp" value="{{ old('nomorhp') }}" required placeholder="Masukkan nomor telepon">
+            </div>
+
             <div>
-                <button type="submit">Login</button>
+                <button type="submit">Registrasi</button>
+            </div>
+
+            <div class="login-link">
+                <p>Sudah punya akun? <a href="{{ route('login') }}">Login</a></p>
             </div>
         </form>
     </div>
-
     @if ($errors->has('email'))
         <div class="error-message">
             {{ $errors->first('email') }}
         </div>
-    @endif
-
-    @if(session('success'))
-    <div class="success-message">
-        {{ session('success') }}
-    </div>
+    @elseif ($errors->has('password'))
+        <div class="error-message">
+            {{ $errors->first('password') }}
+        </div>
     @endif
 </body>
