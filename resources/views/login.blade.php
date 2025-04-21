@@ -7,39 +7,39 @@
         body {
             background: #f3f4f6;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            margin: 90px;
             background: linear-gradient(to right, #ccf2ff, #b3ecff, #99e5ff);
         }
 
         .login-container {
-            background: white;
-            padding: 30px;
+            background: #ffff;
+            padding: 40px;
             margin: auto;
             max-width: 400px;
-            margin-top: 100px;
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: #4338ca;
         }
 
-        input[type="email"],
-        input[type="password"] {
+        label{
+            display: block; 
+            margin-bottom: 3px; 
+            font-size: 13px;
+        }
+
+        input{
             width: 100%;
             padding: 12px;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
             border-radius: 6px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
+            font-size: 13px;
         }
 
         .error-message {
@@ -73,20 +73,34 @@
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 15px;
         }
 
         button:hover {
             background: #00bfff;
+        }
+
+        .forgot-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .forgot-link a {
+            color: #4338ca;
+            text-decoration: none;
+        }
+
+        .forgot-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-
         <form action="{{ route('login') }}" method="POST">
-            @csrf
-
+        @csrf
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required placeholder="Masukkan email">
@@ -100,7 +114,9 @@
             <div>
                 <button type="submit">Login</button>
             </div>
+
         </form>
+
     </div>
 
     @if ($errors->has('email'))

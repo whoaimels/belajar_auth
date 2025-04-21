@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -44,13 +45,16 @@ class AuthController extends Controller
             'password.min' => 'Masukkan minimal 8 karakter untuk password.'
         ]);
         
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->nomorhp = $request->nomorhp;
+        User::create([
+            'name'     => $request->name, 
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'notelp'  => $request->notelp
+        ]);
         
-        $user->save();
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
+
+
+
  }

@@ -15,3 +15,5 @@ Route::get('/dashboard', function () {
 
 Route::get('/registrasi', [AuthController::class, 'registrasi'])->name('registrasi');
 Route::post('/registrasi/submit', [AuthController::class, 'submitRegistrasi'])->name('submit.registrasi');
+
+//Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot-password');
